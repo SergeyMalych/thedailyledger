@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>The Daily Ledger</title>
+
+  <meta charset="utf-8">
+  <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="">
+
+  <!-- Google Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,400i,700%7CRubik:300,400,500' rel='stylesheet'>
+
+  <!-- Css -->
+  <link rel="stylesheet" href="static/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="static/css/font-icons.css" />
+  <link rel="stylesheet" href="static/css/style.css" />
+
+  <!-- Favicons -->
+  <link rel="shortcut icon" href="static/img/favicon.png">
+  <link rel="apple-touch-icon" href="static/img/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="static/img/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="static/img/apple-touch-icon-114x114.png">
+
+  <!-- Lazyload -->
+  <script src="static/js/lazysizes.min.js"></script>
+
+</head>
+
+<body>
+
+  <!-- Preloader -->
+  <div class="loader-mask">
+    <div class="loader">
+      <div></div>
+    </div>
+  </div>
+
+  <!-- Bg Overlay -->
+  <div class="content-overlay"></div>
+
+  <!-- Subscribe Modal -->
+  <div class="modal fade" id="subscribe-modal" tabindex="-1" role="dialog" aria-labelledby="subscribeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="subscribeModalLabel">Don't miss the latest news from the cryptocurrency world</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="mc4wp-form" method="post" action="{{ url_for('subscribe') }}">
+            <div class="mc4wp-form-fields">
+              <div class="form-group">
+                <i class="mc4wp-form-icon ui-email"></i>
+                <input type="email" name="email" placeholder="Your email" required="">
+              </div>
+              <input type="submit" class="btn btn-md btn-color btn-block" value="Subscribe">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div> <!-- end subscribe modal -->
+
+  <!-- Sidenav -->
+  <header class="sidenav" id="sidenav">
+
+    <!-- close -->
+    <div class="sidenav__close">
+      <button class="sidenav__close-button" id="sidenav__close-button" aria-label="close sidenav">
+        <i class="ui-close sidenav__close-icon"></i>
+      </button>
+    </div>
+
+    <!-- Nav -->
+    <nav class="sidenav__menu-container">
+      <ul class="sidenav__menu" role="menubar">
+        <li class="active">
+          <a href="/" class="sidenav__menu-link">Home</a>
+        </li>
+
+        <!--<li>
+          <a href="#" class="sidenav__menu-link">Posts</a>
+          <button class="sidenav__menu-toggle" aria-haspopup="true" aria-label="Open dropdown"><i class="ui-arrow-down"></i></button>
+          <ul class="sidenav__menu-dropdown">
+            <li><a href="single-post-gallery.html" class="sidenav__menu-link">Gallery Post</a></li>
+            <li><a href="single-post.html" class="sidenav__menu-link">Video Post</a></li>
+            <li><a href="single-post.html" class="sidenav__menu-link">Audio Post</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#" class="sidenav__menu-link">Pages</a>
+          <button class="sidenav__menu-toggle" aria-haspopup="true" aria-label="Open dropdown"><i class="ui-arrow-down"></i></button>
+          <ul class="sidenav__menu-dropdown">
+            <li><a href="about.html" class="sidenav__menu-link">About</a></li>
+            <li><a href="contact.html" class="sidenav__menu-link">Contact</a></li>
+            <li><a href="search-results.html" class="sidenav__menu-link">Search Results</a></li>
+            <li><a href="categories.html" class="sidenav__menu-link">Categories</a></li>
+            <li><a href="404.html" class="sidenav__menu-link">404</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#" class="sidenav__menu-link">Features</a>
+          <button class="sidenav__menu-toggle" aria-haspopup="true" aria-label="Open dropdown"><i class="ui-arrow-down"></i></button>
+          <ul class="sidenav__menu-dropdown">
+            <li><a href="lazyload.html" class="sidenav__menu-link">Lazy Load</a></li>
+            <li><a href="shortcodes.html" class="sidenav__menu-link">Shortcodes</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#" class="sidenav__menu-link">Purchase</a>
+        </li>
+      </ul>
+    </nav>-->
+
+    <div class="socials sidenav__socials">
+      <a class="social social--small social-twitter" href="https://twitter.com/ledger_daily" target="_blank" aria-label="twitter">
+        <i class="ui-twitter"></i>
+      </a>
+      <a class="social social--small social-youtube" href="https://www.youtube.com/channel/UCuzt3SuTiGaMSdbLOogmh0w" target="_blank" aria-label="youtube">
+        <i class="ui-youtube"></i>
+      </a>
+      <a class="social social--small social-telegram" href="https://t.me/joinchat/JGVOKAwfvK5EFzkjcRTdHg" target="_blank" aria-label="telegram">
+        <i class="ui-telegram"></i>
+      </a>
+    </div>
+  </header> <!-- end sidenav -->
+
+  <main class="main oh" id="main">
+
+    <!-- Ticker -->
+    <div class="ticker d-none d-lg-block">
+      <div class="ticker__list crypto-rates marquee" data-duration="60000" data-direction="left"></div>
+    </div> <!-- end ticker -->
+
+    <!-- Header -->
+    <div class="header">
+      <div class="container">
+        <div class="flex-parent align-items-center">
+
+          <!-- Mobile Toggle Button -->
+          <button class="nav-icon-toggle d-lg-none" id="nav-icon-toggle" aria-label="Open side menu">
+            <span class="nav-icon-toggle__box">
+              <span class="nav-icon-toggle__inner"></span>
+            </span>
+          </button> <!-- end mobile toggle button -->
+
+          <!-- Logo -->
+          <a href="/" class="logo">
+            <img class="logo__img" src="static/img/logo.png" srcset="static/img/logo.png 1x, static/img/logo@2x.png 2x" alt="logo" style="width:50%">
+          </a>
+
+          <!-- Search -->
+          <div class="nav__mobile-search d-lg-none">
+            <a href="#" class="nav__search-trigger">
+              <i class="ui-search nav__search-trigger-icon"></i>
+            </a>
+          </div>
+
+          <!-- Search form -->
+          <form role="search" method="get" class="nav__search-form d-lg-none">
+            <input type="search" class="nav__search-input" placeholder="Type &amp; Hit Enter">
+            <i class="ui-close nav__search-close"></i>
+          </form>
+
+          <!-- Ad Banner 728 -->
+          <div class="header__ad text-center d-lg-block d-none">
+            <a href="{{banner.link}}">
+              <img src="{{banner.image}}" alt="">
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div> <!-- end header -->
+
+    <!-- Navigation -->
+    <header class="nav d-lg-block d-none">
+
+      <div class="nav__holder">
+        <div class="container relative">
+          <div class="flex-parent">
+
+            <!-- Search form -->
+            <form role="search" method="get" class="nav__search-form">
+              <input type="search" class="nav__search-input" id="nav__search-input" placeholder="Type &amp; Hit Enter">
+              <i class="ui-close nav__search-close" id="nav__search-close"></i>
+            </form>
+
+            <!-- Nav-wrap -->
+            <nav class="flex-child nav__wrap d-none d-lg-block">
+              <ul class="nav__menu">
+
+                <li class="active">
+                  <a href="/">Home</a>
+                </li>
+
+                <!--<li class="nav__dropdown">
+                  <a href="#">Posts</a>
+                  <ul class="nav__dropdown-menu">
+                    <li><a href="single-post.html">Standard Post</a></li>
+                    <li><a href="single-post-gallery.html">Gallery Post</a></li>
+                  </ul>
+                </li>
+
+                <li class="nav__dropdown">
+                  <a href="#">Pages</a>
+                  <ul class="nav__dropdown-menu">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="search-results.html">Search Results</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="404.html">404</a></li>
+                  </ul>
+                </li>
+
+                <li class="nav__dropdown">
+                  <a href="#">Features</a>
+                  <ul class="nav__dropdown-menu">
+                    <li><a href="lazyload.html">Lazy Load</a></li>
+                    <li><a href="shortcodes.html">Shortcodes</a></li>
+                  </ul>
+                </li>
+
+                <li>
+                  <a href="#">Purchase</a>
+                </li>-->
+
+              </ul> <!-- end menu -->
+            </nav> <!-- end nav-wrap -->
+
+            <!-- Nav Right -->
+            <div class="nav__right nav--align-right d-none d-lg-flex">
+
+              <!-- Socials -->
+              <div class="nav__right-item socials nav__socials">
+                <a class="social social-twitter social--nobase" href="https://twitter.com/ledger_daily" target="_blank" aria-label="twitter">
+                  <i class="ui-twitter"></i>
+                </a>
+                <a class="social social-telegram social--nobase" href="https://t.me/joinchat/JGVOKAwfvK5EFzkjcRTdHg" target="_blank" aria-label="telegram">
+                  <i class="ui-telegram"></i>
+                </a>
+                <a class="social social-youtube social--nobase" href="https://www.youtube.com/channel/UCuzt3SuTiGaMSdbLOogmh0w" target="_blank" aria-label="youtube">
+                  <i class="ui-youtube"></i>
+                </a>
+              </div>
+
+              <!-- Subscribe -->
+              <div class="nav__right-item nav__subscribe">
+                <a href="action="{{ url_for('subscribe') }}"" class="nav__subscribe-url" data-toggle="modal" data-target="#subscribe-modal">Subscribe</a>
+              </div>
+
+              <!-- Search -->
+              <!--<div class="nav__right-item nav__search">
+                <a href="#" class="nav__search-trigger" id="nav__search-trigger">
+                  <i class="ui-search nav__search-trigger-icon"></i>
+                </a>
+              </div>-->
+
+            </div> <!-- end nav right -->
+
+          </div> <!-- end flex-parent -->
+        </div> <!-- end container -->
+
+      </div>
+    </header> <!-- end navigation -->
+
+    <!-- Content -->
+    <section class="section-wrap main-content">
+      <div class="container">
+            {% block content %}
+            {% endblock content %}
+    
+        </div> <!-- end container -->
+    </section> <!-- end content -->
+
+
+    <!-- Ad -->
+    <section class="section-wrap">
+      <div class="container text-center">
+        <a href="{{banner.link}}">
+          <img src="{{banner.image}}" alt="">
+        </a>
+      </div>
+    </section>
+
+
+
+    <!-- Newsletter -->
+    <div class="container">
+      <div class="widget newsletter-wide">
+
+        <div class="newsletter-wide__text">
+          <h3 class="widget-title newsletter-wide__title">Stay up to date</h3>
+        </div>
+
+        <div class="newsletter-wide__form">
+          <form class="mc4wp-form" method="post" action="{{ url_for('subscribe') }}">
+            <div class="mc4wp-form-fields">
+              <div class="form-group">
+                <i class="ui-user"></i>
+                <input type="text" name="name" placeholder="Your name" required="">
+              </div>
+              <div class="form-group">
+                <i class="ui-email"></i>
+                <input type="email" name="email" placeholder="Your email" required="">
+              </div>
+              <input type="submit" class="btn btn-md btn-color" value="Subscribe">
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div> <!-- end newsletter -->
+
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__widgets">
+          <div class="row">
+
+            <div class="col-lg-4 col-md-6">
+              <div class="widget">
+                <a href="/">
+                  <img src="static/img/logo.png" srcset="static/img/logo.png 1x, static/img/logo@2x.png 2x" class="logo__img" alt="">
+                </a>
+                <p class="mt-20 mb-30">Cryptocurrency news blog and investment strategy guide. All you need to know about ICOs, education, reviews, mining, and more.</p>
+                <div class="socials">
+                  <a href="https://twitter.com/ledger_daily" class="social social-twitter" aria-label="twitter"><i class="ui-twitter"></i></a>
+                  <a href="https://www.youtube.com/channel/UCuzt3SuTiGaMSdbLOogmh0w" class="social social-youtube" aria-label="youtube"><i class="ui-youtube"></i></a>
+                  <a href="https://t.me/joinchat/JGVOKAwfvK5EFzkjcRTdHg" class="social social-telegram" aria-label="telegram"><i class="ui-telegram"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-5 col-md-6">
+              <div class="widget donate">
+                <h4 class="widget-title">Donate</h4>
+                <ul class="donate__list">
+                  <li class="donate__item"><span class="donate__label">BTC:</span> 1EPqCgLcgxxTtiX6FX5RtPMmRvbjA6shnV</li>
+                  <li class="donate__item"><span class="donate__label">ETH:</span> 0x0074709077B8AE5a245E4ED161C971Dc4c3C8E2B</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+              <div class="widget widget_nav_menu">
+                <h4 class="widget-title">Useful Links</h4>
+                <ul>
+                  <li><a href="about.html">About</a></li>
+                  <li><a href="blog.html">Advertise</a></li>
+                  <li><a href="shortcodes.html">FAQ</a></li>
+                  <li><a href="contact.html">Contact</a></li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div> <!-- end container -->
+
+      <div class="footer__bottom">
+        <div class="container text-center">
+          <span class="copyright">
+            &copy; 2018 Daily Ledger</a>
+          </span>
+        </div>
+      </div> <!-- end bottom footer -->
+    </footer> <!-- end footer -->
+
+    <div id="back-to-top">
+      <a href="#top" aria-label="Go to top"><i class="ui-arrow-up"></i></a>
+    </div>
+
+  </main> <!-- end main-wrapper -->
+
+
+  <!-- jQuery Scripts -->
+  <script src="static/js/jquery.min.js"></script>
+  <script src="static/js/bootstrap.min.js"></script>
+  <script src="static/js/easing.min.js"></script>
+  <script src="static/js/jquery.marquee.min.js"></script>
+  <script src="static/js/imagesloaded.pkgd.min.js"></script>
+  <script src="static/js/isotope.pkgd.min.js"></script>
+  <script src="static/js/owl-carousel.min.js"></script>
+  <script src="static/js/modernizr.min.js"></script>
+  <script src="static/js/scripts.js"></script>
+
+</body>
+</html>

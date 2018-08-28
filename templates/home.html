@@ -1,0 +1,132 @@
+{% extends "index.html" %}
+{% block content %}
+        <div class="row">
+
+          <!-- Posts -->
+          <div class="col-lg-8 blog__content mb-30">
+
+            <!-- Featured Post -->
+            <article class="entry">
+              <div class="thumb-bg-holder thumb-container thumb-65">
+                <img data-src="{{articles[0].image}}" src="{{articles[0].image}}" class="lazyload" alt="">
+                <a href="{{articles[0].link}}" class="thumb-url"></a>
+                <div class="bottom-gradient"></div>
+              </div>
+
+              <div class="thumb-text-holder">
+                <a href="{{articles[0].link}}" class="entry__meta-category">{{articles[0].source}}</a> 
+                <h1 class="thumb-entry-title">
+                  <a href="{{articles[0].link}}">{{articles[0].title}}</a>
+                </h1>
+                <span class="entry__meta-category">{{articles[0].published}} </span>
+              </div>
+            </article> <!-- end featured post -->
+
+            <!-- Hot News -->
+            <section class="section">
+              <h3 class="section-title h2">Recent News</h3>
+              {% for article_row in articles[1:] | batch(2, '&nbsp;') %}
+              <div class="row">
+                  {% for article in article_row %}
+                <div class="col-md-6">
+                  <article class="entry">
+                    <a href="{{article.link}}" class="entry__meta-category">{{article.source}}</a>
+                    <div class="entry__img-holder">
+                      <a href="{{article.link}}">
+                        <div class="thumb-container thumb-75">
+                          <img data-src="{{article.image}}" src="{{article.image}}" class="entry__img lazyload" alt="" />
+                        </div>
+                      </a>
+                    </div>
+
+                    <div class="entry__body">
+                      <div class="entry__header">
+                        <h2 class="entry__title entry__title--medium">
+                          <a href="{{article.link}}">{{article.title}}</a>
+                        </h2>
+                        {{article.published}}
+                      </div>
+                    </div>
+                  </article>
+                </div>
+                {% endfor %}
+              </div>
+              	<div class="clearfix">
+              	{% endfor %}
+
+
+            </section> <!-- end hot news -->
+            {% if prev_url %}
+            <a href="{{ prev_url }}">Newer posts</a>
+            {% endif %}
+            {% if next_url %}
+            <a href="{{ next_url }}">Older posts</a>
+            {% endif %}
+
+
+
+          </div> <!-- end posts -->
+
+          <!-- Sidebar -->
+          <aside class="col-lg-4 sidebar sidebar--right">
+
+            <!-- Widget Crypto Rates -->
+            <div class="widget widget-crypto-rates">
+              <h4 class="widget-title">Cryptocurrency Prices</h4>
+              <div class="crypto-rates" id="crypto-rates"></div>
+            </div>
+
+            <!-- Widget Featured ICO's -->
+            <div class="widget widget-featured-icos">
+              <h4 class="widget-title">Featured ICO's</h4>
+              <ul class="widget-featured-icos__list">
+                  {% for ico in icos %}
+                <li class="widget-featured-icos__item">
+                  <a href="#" class="widget-featured-icos__url">
+                    <img src="{{ico.image}}" width="70" height="70" alt="">
+                    <span class="widget-featured-icos__title">{{ico.name}}</span>
+                    <span class="widget-featured-icos__launch">Starts in:</span>
+                    <span class="widget-featured-icos__time">{{ico.date}} days</span>
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div> <!-- end widget featured icos -->
+
+            <!-- Widget Socials -->
+            <div class="widget widget-socials">
+              <div class="socials justify-content-center">
+                <a class="social social-twitter" href="https://twitter.com/ledger_daily" title="twitter" target="_blank" aria-label="twitter">
+                  <i class="ui-twitter"></i>
+                </a><!--
+                --><a class="social social-telegram" href="https://t.me/thedailyledger" title="telegram" target="_blank" aria-label="telegram">
+                  <i class="ui-telegram"></i>
+                </a><!--
+                --><a class="social social-youtube" href="https://www.youtube.com/channel/UCuzt3SuTiGaMSdbLOogmh0w" title="youtube" target="_blank" aria-label="youtube">
+                  <i class="ui-youtube"></i>
+                </a><!--
+                --><a class="social social-rss" href="/article/feeds/all.atom.xml" title="rss" target="_blank" aria-label="rss">
+                  <i class="ui-rss"></i>
+                </a>
+              </div>
+            </div> <!-- end widget socials -->
+
+            <!-- Widget Newsletter -->
+            <div class="widget widget_mc4wp_form_widget">
+              <h4 class="widget-title">Subscribe for News</h4>
+              <form class="mc4wp-form" method="post" action="{{ url_for('subscribe') }}">
+                <div class="mc4wp-form-fields">
+                  <div class="form-group">
+                    <i class="ui-email"></i>
+                    <input type="email" name="email" placeholder="Your email" required="">
+                  </div>
+                  <input type="submit" class="btn btn-md btn-color" value="Subscribe">
+                </div>
+              </form>
+            </div> <!-- end widget newsletter -->
+
+
+          </aside> <!-- end sidebar -->
+
+        </div> <!-- end row -->
+        {%endblock%}

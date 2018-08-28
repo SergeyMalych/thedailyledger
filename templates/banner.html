@@ -1,0 +1,29 @@
+{% extends "admin.html" %}
+{% block content %}
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">image</th>
+            <th scope="col">link</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">is active</th>
+            <th scope="col">activate</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for banner in banners %}
+          <tr>
+            <th scope="row">{{banner.id}}</a></th>
+            <td><img src="{{banner.image}}" width="500" height="70"></td>
+            <td>{{banner.link}}</td>
+            <td>{{banner.date}}</td>
+            <td>{{banner.active}}</td>
+            <td><a href="{{ url_for("banner_activate", id=banner.id) }}">activate</a></td>
+          </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+      <a href="{{ url_for('banner_create') }}">add new banner</a>
+{%endblock%}

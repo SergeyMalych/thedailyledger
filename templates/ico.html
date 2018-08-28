@@ -1,0 +1,30 @@
+{% extends "admin.html" %}
+{% block content %}
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Icon</th>
+      <th scope="col">Name</th>
+      <th scope="col">Start Date</th>
+      <th scope="col">link</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for ico in icos %}
+    <tr>
+      <th scope="row">{{ico.id}}</a></th>
+      <td><img src="{{ico.image}}" width="100" height="100"></td>
+      <td>{{ico.name}}</td>
+      <td>{{ico.date}}</td>
+      <td>{{ico.link}}</td>
+      <td><a href="{{ url_for("ico_delete", id=ico.id) }}">Delete</a></td>
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+<a href="{{ url_for('ico_create') }}">add new ICO</a>
+{% endblock %}
+
